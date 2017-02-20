@@ -5,9 +5,9 @@ var images = [
   new Image('img/bag.jpg', 'bag'),
   new Image('img/banana.jpg', 'banana'),
   new Image('img/bathroom.jpg', 'bathroom'),
-  // new Image('img/boots.jpg', 'boots'),
-  // new Image('img/breakfast.jpg', 'breakfast'),
-  // new Image('img/bubblegum', 'bubblegum'),
+  new Image('img/boots.jpg', 'boots'),
+  new Image('img/breakfast.jpg', 'breakfast'),
+  new Image('img/bubblegum', 'bubblegum'),
   // new Image('img/chair.jpg', 'chair'),
   // new Image('img/cthulhu.jpg', 'cthulhu'),
   // new Image('img/dog-duck.jpg', 'dog-duck'),
@@ -78,6 +78,8 @@ function randomIndexGenerator() {
 // }
 
 function showImage() {
+  lastSet = currentSet;
+  currentSet = [];
   for (var i = 0; i < 3; i++) {
     var index = randomIndexGenerator();
     var currentImage = images[index];
@@ -100,15 +102,16 @@ function showImage() {
       }
     }
   }
-  lastSet = currentSet;
 }
 
 showImage();
-console.log('----1 run current set----');
+console.log('----run 1 current set----');
 console.log(currentSet);
-// showImage();
-// console.log(currentSet);
-// console.log(lastSet);
+showImage();
+console.log('----run 2 current set');
+console.log(currentSet);
+console.log('----run 2 last set');
+console.log(lastSet);
 // vote tracker
 
 // results
