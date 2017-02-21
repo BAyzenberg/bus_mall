@@ -24,6 +24,9 @@ var images = [
   new Image('img/wine-glass.jpg', 'wine-glass')
 ];
 
+var votes = [];
+var names = [];
+
 console.log('---------List of Images---------');
 console.dir(images);
 
@@ -38,6 +41,7 @@ var submitions = 25;
 
 // Form Parent Node
 var fieldEl = document.getElementById('option-set');
+var resultsEl = document.getElementById('results');
 
 // simple image node creator
 function createImage(url, alt, id, parentNode) {
@@ -60,7 +64,7 @@ function Image(url, alt) {
 }
 
 Image.prototype.votePercentage = function () {
-  this.shownPercentage = Math.round(this.votes / this.timesShown * 100);
+  this.pickPercentage = Math.round(this.votes / this.timesShown * 100);
 };
 
 // Display
@@ -155,11 +159,41 @@ function handleClick(event) {
       alert('Please click an image.');
     }
     console.log(submitions);
-  } else {
+  } else if (submitions === 0) {
     showResults();
+    submitions = NaN;
   }
 }
 // results
+
 function showResults() {
-  
+  burnTheChildren();
+  for (var iResults = 0; iResults < images.length; iResults++) {
+    images[iResults].votePercentage();
+    names.push(images[iResults].alt);
+    votes.push(images[iResults].votes);
+    console.log(images[iResults]);
+  }
+  var results = new Chart(resultsEl, chartData);
 }
+
+var chartData = {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'Number of votes',
+      data: votes,
+      backgroundColor: ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon']
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+};

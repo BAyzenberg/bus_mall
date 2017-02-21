@@ -7,3 +7,7 @@ fieldset img {
 fieldset {
   padding: 0;
 }
+
+canvas {
+  width: 75%;
+}
