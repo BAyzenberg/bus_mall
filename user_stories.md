@@ -2,7 +2,7 @@
 
 * As a user i want to be able to see 3 randomly selected options.
 * As a user i want to have visible feedback on my selections.
-* As a user i want to see my total selections in a meaningful. after i have made all of my decisions.
+* As a user i want to see my total selections in a meaningful order after i have made all of my decisions.
 * As a user i want the background to help with the decision making process, not distract from it.
 
 * As a developer i want to make the submitting process simple to use.

@@ -24,6 +24,9 @@ var images = [
   new Image('img/wine-glass.jpg', 'wine-glass')
 ];
 
+var votes = [];
+var names = [];
+
 console.log('---------List of Images---------');
 console.dir(images);
 
@@ -34,16 +37,18 @@ var currentSet = [];
 console.log('----current Set----');
 console.log(currentSet);
 
-var sumbitions = 0;
+var submitions = 25;
 
 // Form Parent Node
-var formEl = document.getElementById('option-set');
+var fieldEl = document.getElementById('option-set');
+var resultsEl = document.getElementById('results');
 
 // simple image node creator
-function createImage(url, alt, parentNode) {
+function createImage(url, alt, id, parentNode) {
   var element = document.createElement('img');
   element.setAttribute('src', url);
   element.setAttribute('alt', alt);
+  element.setAttribute('id', id);
   // console.log(element);
   //give the Child to the Dom
   parentNode.appendChild(element);
@@ -59,7 +64,7 @@ function Image(url, alt) {
 }
 
 Image.prototype.votePercentage = function () {
-  this.shownPercentage = this.votes / this.timesShown * 100;
+  this.pickPercentage = Math.round(this.votes / this.timesShown * 100);
 };
 
 // Display
@@ -76,12 +81,14 @@ function setImage() {
   for (var i = 0; i < 3; i++) {
     var index = randomIndexGenerator();
     var currentImage = images[index];
+    currentImage.timesShown++;
     currentSet.push(currentImage);
     //lastSet check
     for (var iLast = 0; iLast < lastSet.length; iLast++) {
       if (lastSet[iLast] === currentImage){
         i--;
         currentSet.pop();
+        currentImage.timesShown++;
         continue;
       }
     }
@@ -90,6 +97,7 @@ function setImage() {
       if (currentSet[iCurrent] === currentImage) {
         i--;
         currentSet.pop();
+        currentImage.timesShown++;
         continue;
       }
     }
@@ -102,13 +110,19 @@ function setImage() {
 
 function showImage() {
   for (var j = 0; j < currentSet.length; j++) {
-    createImage(currentSet[j].url, currentSet.alt, formEl);
+    if (j === 0) {
+      createImage(currentSet[j].url, currentSet.alt, 'left', fieldEl);
+    } else if (j === 1) {
+      createImage(currentSet[j].url, currentSet.alt, 'center', fieldEl);
+    } else {
+      createImage(currentSet[j].url, currentSet.alt, 'right', fieldEl);
+    }
   }
 }
 
 function burnTheChildren() {
-  while (formEl.hasChildNodes()) {
-    formEl.removeChild(formEl.firstChild);
+  while (fieldEl.hasChildNodes()) {
+    fieldEl.removeChild(fieldEl.firstChild);
   }
 }
 
@@ -122,5 +136,64 @@ function print() {
 print();
 
 // vote tracker
+fieldEl.addEventListener('click', handleClick);
 
+function handleClick(event) {
+  if (submitions > 0) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.target.id === 'left') {
+      currentSet[0].votes++;
+      submitions--;
+      print();
+    } else if (event.target.id === 'center') {
+      currentSet[1].votes++;
+      submitions--;
+      print();
+    } else if (event.target.id === 'right') {
+      currentSet[2].votes++;
+      submitions--;
+      print();
+    } else {
+      alert('Please click an image.');
+    }
+    console.log(submitions);
+  } else if (submitions === 0) {
+    showResults();
+    submitions = NaN;
+  }
+}
 // results
+
+function showResults() {
+  burnTheChildren();
+  for (var iResults = 0; iResults < images.length; iResults++) {
+    images[iResults].votePercentage();
+    names.push(images[iResults].alt);
+    votes.push(images[iResults].votes);
+    console.log(images[iResults]);
+  }
+  var results = new Chart(resultsEl, chartData);
+}
+
+var chartData = {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'Number of votes',
+      data: votes,
+      backgroundColor: ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon']
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+};
