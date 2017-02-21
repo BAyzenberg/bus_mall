@@ -16,7 +16,7 @@ var images = [
   new Image('img/pet-sweep.jpg', 'pet-sweep'),
   new Image('img/scissors.jpg', 'scissors'),
   new Image('img/shark.jpg', 'sharks'),
-  new Image('img/sweep.jpg', 'sweep'),
+  new Image('img/sweep.png', 'sweep'),
   new Image('img/tauntaun.jpg', 'tauntaun'),
   new Image('img/unicorn.jpg', 'unicorn'),
   new Image('img/usb.gif', 'usb'),
@@ -33,6 +33,8 @@ console.log(lastSet);
 var currentSet = [];
 console.log('----current Set----');
 console.log(currentSet);
+
+var sumbitions = 0;
 
 // Form Parent Node
 var formEl = document.getElementById('option-set');
@@ -110,6 +112,7 @@ function burnTheChildren() {
   }
 }
 
+// Display the Images on the Browser
 function print() {
   burnTheChildren();
   setImage();
