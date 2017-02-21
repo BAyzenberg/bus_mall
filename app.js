@@ -34,10 +34,10 @@ var currentSet = [];
 console.log('----current Set----');
 console.log(currentSet);
 
-var sumbitions = 25;
+var submitions = 25;
 
 // Form Parent Node
-var formEl = document.getElementById('option-set');
+var fieldEl = document.getElementById('option-set');
 
 // simple image node creator
 function createImage(url, alt, id, parentNode) {
@@ -107,18 +107,18 @@ function setImage() {
 function showImage() {
   for (var j = 0; j < currentSet.length; j++) {
     if (j === 0) {
-      createImage(currentSet[j].url, currentSet.alt, 'left', formEl);
+      createImage(currentSet[j].url, currentSet.alt, 'left', fieldEl);
     } else if (j === 1) {
-      createImage(currentSet[j].url, currentSet.alt, 'center', formEl);
+      createImage(currentSet[j].url, currentSet.alt, 'center', fieldEl);
     } else {
-      createImage(currentSet[j].url, currentSet.alt, 'right', formEl);
+      createImage(currentSet[j].url, currentSet.alt, 'right', fieldEl);
     }
   }
 }
 
 function burnTheChildren() {
-  while (formEl.hasChildNodes()) {
-    formEl.removeChild(formEl.firstChild);
+  while (fieldEl.hasChildNodes()) {
+    fieldEl.removeChild(fieldEl.firstChild);
   }
 }
 
@@ -132,5 +132,34 @@ function print() {
 print();
 
 // vote tracker
+fieldEl.addEventListener('click', handleClick);
 
+function handleClick(event) {
+  if (submitions > 0) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    if (event.target.id === 'left') {
+      currentSet[0].votes++;
+      submitions--;
+      print();
+    } else if (event.target.id === 'center') {
+      currentSet[1].votes++;
+      submitions--;
+      print();
+    } else if (event.target.id === 'right') {
+      currentSet[2].votes++;
+      submitions--;
+      print();
+    } else {
+      alert('Please click an image.');
+    }
+    console.log(submitions);
+  } else {
+    showResults();
+  }
+}
 // results
+function showResults() {
+  
+}
