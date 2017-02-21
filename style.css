@@ -1,3 +1,9 @@
-form img {
+fieldset img {
   width: 30%;
+  border: 2px solid black;
+  margin: 1.5%;
+}
+
+fieldset {
+  padding: 0;
 }

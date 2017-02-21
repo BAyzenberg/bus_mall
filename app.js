@@ -34,16 +34,17 @@ var currentSet = [];
 console.log('----current Set----');
 console.log(currentSet);
 
-var sumbitions = 0;
+var sumbitions = 25;
 
 // Form Parent Node
 var formEl = document.getElementById('option-set');
 
 // simple image node creator
-function createImage(url, alt, parentNode) {
+function createImage(url, alt, id, parentNode) {
   var element = document.createElement('img');
   element.setAttribute('src', url);
   element.setAttribute('alt', alt);
+  element.setAttribute('id', id);
   // console.log(element);
   //give the Child to the Dom
   parentNode.appendChild(element);
@@ -59,7 +60,7 @@ function Image(url, alt) {
 }
 
 Image.prototype.votePercentage = function () {
-  this.shownPercentage = this.votes / this.timesShown * 100;
+  this.shownPercentage = Math.round(this.votes / this.timesShown * 100);
 };
 
 // Display
@@ -76,12 +77,14 @@ function setImage() {
   for (var i = 0; i < 3; i++) {
     var index = randomIndexGenerator();
     var currentImage = images[index];
+    currentImage.timesShown++;
     currentSet.push(currentImage);
     //lastSet check
     for (var iLast = 0; iLast < lastSet.length; iLast++) {
       if (lastSet[iLast] === currentImage){
         i--;
         currentSet.pop();
+        currentImage.timesShown++;
         continue;
       }
     }
@@ -90,6 +93,7 @@ function setImage() {
       if (currentSet[iCurrent] === currentImage) {
         i--;
         currentSet.pop();
+        currentImage.timesShown++;
         continue;
       }
     }
@@ -102,7 +106,13 @@ function setImage() {
 
 function showImage() {
   for (var j = 0; j < currentSet.length; j++) {
-    createImage(currentSet[j].url, currentSet.alt, formEl);
+    if (j === 0) {
+      createImage(currentSet[j].url, currentSet.alt, 'left', formEl);
+    } else if (j === 1) {
+      createImage(currentSet[j].url, currentSet.alt, 'center', formEl);
+    } else {
+      createImage(currentSet[j].url, currentSet.alt, 'right', formEl);
+    }
   }
 }
 
