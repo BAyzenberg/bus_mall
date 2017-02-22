@@ -178,7 +178,7 @@ function showResults() {
     console.log(images[iResults]);
   }
   new Chart(resultsEl, votesData);
-  // new Chart(percentageEl, percentageData);
+  new Chart(percentageEl, percentageData);
 }
 
 var votesData = {
@@ -202,22 +202,23 @@ var votesData = {
   }
 };
 //
-// var percentageData = {
-//   type: 'radar',
-//   data: {
-//     label: names,
-//     datasets: [{
-//       label: 'Percentages of times clicked per shown',
-//       data: percetents,
-//       backgroundColor: backgroundColors
-//     }]
-//   },
-//   options: {
-//     scales: {
-//       reverse: true,
-//       ticks: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// };
+var percentageData = {
+  type: 'radar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'Percentages of times clicked per shown',
+      data: percetents,
+      backgroundColor: backgroundColors
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: {
+        ticks: {
+          beginAtZero: true
+        }
+      }
+    }
+  }
+};
