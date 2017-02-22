@@ -26,6 +26,8 @@ var images = [
 
 var votes = [];
 var names = [];
+var percetents = [];
+var backgroundColors = ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon'];
 
 console.log('---------List of Images---------');
 console.dir(images);
@@ -42,7 +44,7 @@ var submitions = 25;
 // Form Parent Node
 var fieldEl = document.getElementById('option-set');
 var resultsEl = document.getElementById('results');
-
+var percentageEl = document.getElementById('percentages');
 // simple image node creator
 function createImage(url, alt, id, parentNode) {
   var element = document.createElement('img');
@@ -172,19 +174,21 @@ function showResults() {
     images[iResults].votePercentage();
     names.push(images[iResults].alt);
     votes.push(images[iResults].votes);
+    percetents.push(images[iResults].pickPercentage);
     console.log(images[iResults]);
   }
-  var results = new Chart(resultsEl, chartData);
+  new Chart(resultsEl, votesData);
+  // new Chart(percentageEl, percentageData);
 }
 
-var chartData = {
+var votesData = {
   type: 'bar',
   data: {
     labels: names,
     datasets: [{
       label: 'Number of votes',
       data: votes,
-      backgroundColor: ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon']
+      backgroundColor: backgroundColors
     }]
   },
   options: {
@@ -197,3 +201,23 @@ var chartData = {
     }
   }
 };
+//
+// var percentageData = {
+//   type: 'radar',
+//   data: {
+//     label: names,
+//     datasets: [{
+//       label: 'Percentages of times clicked per shown',
+//       data: percetents,
+//       backgroundColor: backgroundColors
+//     }]
+//   },
+//   options: {
+//     scales: {
+//       reverse: true,
+//       ticks: {
+//         beginAtZero: true
+//       }
+//     }
+//   }
+// };
