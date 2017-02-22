@@ -174,7 +174,7 @@ function showResults() {
     votes.push(images[iResults].votes);
     console.log(images[iResults]);
   }
-  var results = new Chart(resultsEl, chartData);
+  new Chart(resultsEl, chartData);
 }
 
 var chartData = {
