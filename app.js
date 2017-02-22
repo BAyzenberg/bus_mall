@@ -24,11 +24,6 @@ var images = [
   new Image('img/wine-glass.jpg', 'wine-glass')
 ];
 
-var votes = [];
-var names = [];
-var percetents = [];
-var backgroundColors = ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon'];
-
 console.log('---------List of Images---------');
 console.dir(images);
 
@@ -43,8 +38,7 @@ var submitions = 25;
 
 // Form Parent Node
 var fieldEl = document.getElementById('option-set');
-var resultsEl = document.getElementById('results');
-var percentageEl = document.getElementById('percentages');
+
 // simple image node creator
 function createImage(url, alt, id, parentNode) {
   var element = document.createElement('img');
@@ -162,12 +156,16 @@ function handleClick(event) {
     }
     console.log(submitions);
   } else if (submitions === 0) {
-    showResults();
     submitions = NaN;
+    for (var iResults = 0; iResults < images.length; iResults++) {
+      images[iResults].votePercentage();
+    }
+    localStorage.images = JSON.stringify(images);
   }
 }
 // results
 
+/* Moved to Charts.js
 function showResults() {
   burnTheChildren();
   for (var iResults = 0; iResults < images.length; iResults++) {
@@ -222,3 +220,4 @@ var percentageData = {
     }
   }
 };
+*/
