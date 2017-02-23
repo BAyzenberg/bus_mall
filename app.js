@@ -39,6 +39,16 @@ var submitions = 25;
 // Form Parent Node
 var fieldEl = document.getElementById('option-set');
 
+//check for imageTotals
+
+
+// else {
+//   var imagesTotal = [];
+//   for (var i = 0; i < images.length; i++) {
+//     imagesTotal[i] = 0;
+//   }
+// }
+
 // simple image node creator
 function createImage(url, alt, id, parentNode) {
   var element = document.createElement('img');
@@ -160,64 +170,27 @@ function handleClick(event) {
     for (var iResults = 0; iResults < images.length; iResults++) {
       images[iResults].votePercentage();
     }
+    burnTheChildren();
     localStorage.images = JSON.stringify(images);
-  }
-}
-// results
 
-/* Moved to Charts.js
-function showResults() {
-  burnTheChildren();
-  for (var iResults = 0; iResults < images.length; iResults++) {
-    images[iResults].votePercentage();
-    names.push(images[iResults].alt);
-    votes.push(images[iResults].votes);
-    percetents.push(images[iResults].pickPercentage);
-    console.log(images[iResults]);
-  }
-  new Chart(resultsEl, votesData);
-  new Chart(percentageEl, percentageData);
-}
-
-var votesData = {
-  type: 'bar',
-  data: {
-    labels: names,
-    datasets: [{
-      label: 'Number of votes',
-      data: votes,
-      backgroundColor: backgroundColors
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
-  }
-};
-//
-var percentageData = {
-  type: 'radar',
-  data: {
-    labels: names,
-    datasets: [{
-      label: 'Percentages of times clicked per shown',
-      data: percetents,
-      backgroundColor: backgroundColors
-    }]
-  },
-  options: {
-    scales: {
-      yAxes: {
-        ticks: {
-          beginAtZero: true
-        }
+    var imagesTotal = images;
+    if (localStorage.imagesTotal) {
+      imagesTotal = JSON.parse(localStorage.imagesTotal);
+      for (var i = 0; i < images.length; i++) {
+        imagesTotal[i].votes += images[i].votes;
+        imagesTotal[i].timesShown += images[i].timesShown;
       }
     }
+
+    // var previousTotal = JSON.parse(imagesTotal);
+    // var imagesTotal = update(images, imagesTotal);
+    localStorage.imagesTotal = JSON.stringify(imagesTotal);
   }
-};
-*/
+}
+// results moved to charts.js
+
+// function update(images, imagesTotal) {
+//   console.log('update fn', images, imagesTotal);
+//   var imagesNewTotal = imagesTotal;
+//   return imagesNewTotal;
+// }

@@ -2,16 +2,20 @@
 
 var votes = [];
 var names = [];
+var votesTotal = [];
+var timesShownTotal = [];
 var percetentages = [];
 var timesShown = [];
 var backgroundColors = ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon'];
 
 var resultsEl = document.getElementById('results');
 var percentageEl = document.getElementById('percentages');
+var resultsTotalEl = document.getElementById('total-results');
 
 var images = JSON.parse(localStorage.images);
+var imagesTotal = JSON.parse(localStorage.imagesTotal);
 
-console.log(images);
+// console.log(images);
 
 function showResults() {
   for (var iResults = 0; iResults < images.length; iResults++) {
@@ -19,10 +23,13 @@ function showResults() {
     votes.push(images[iResults].votes);
     percetentages.push(images[iResults].pickPercentage);
     timesShown.push(images[iResults].timesShown);
-    console.log(images[iResults]);
+    votesTotal.push(imagesTotal[iResults].votes);
+    timesShownTotal.push(imagesTotal[iResults].timesShown);
+    // console.log(images[iResults]);
   }
   new Chart(resultsEl, votesData);
   new Chart(percentageEl, percentageData);
+  new Chart(resultsTotalEl, votesDataTotal);
 }
 
 var votesData = {
@@ -71,4 +78,28 @@ var percentageData = {
   }
 };
 
+var votesDataTotal = {
+  type: 'bar',
+  data: {
+    labels: names,
+    datasets: [{
+      label: 'Total Number of votes',
+      data: votesTotal,
+      backgroundColor: backgroundColors
+    },
+    { label: 'Total Number of times shown',
+      data: timesShownTotal,
+      backgroundColor: 'lightgrey'
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+};
 showResults();
