@@ -41,7 +41,6 @@ var fieldEl = document.getElementById('option-set');
 
 //check for imageTotals
 
-
 // else {
 //   var imagesTotal = [];
 //   for (var i = 0; i < images.length; i++) {
@@ -179,6 +178,7 @@ function handleClick(event) {
       for (var i = 0; i < images.length; i++) {
         imagesTotal[i].votes += images[i].votes;
         imagesTotal[i].timesShown += images[i].timesShown;
+        imagesTotal[i].votePercentage();
       }
     }
 

@@ -1,16 +1,18 @@
 'use strict';
 
-var votes = [];
 var names = [];
+var votes = [];
+var timesShown = [];
+var percetentages = [];
 var votesTotal = [];
 var timesShownTotal = [];
-var percetentages = [];
-var timesShown = [];
+var percentagesTotal = [];
 var backgroundColors = ['blue', 'orange', 'yellow', 'green', 'purple', 'red', 'pink', 'darkblue', 'black', 'aqua', 'coral', 'brown', 'cyan', 'goldenrod', 'grey', 'magenta', 'olive', 'tan', 'teal', 'salmon'];
 
 var resultsEl = document.getElementById('results');
 var percentageEl = document.getElementById('percentages');
 var resultsTotalEl = document.getElementById('total-results');
+var percentagesTotalEl = document.getElementById('total-percentages');
 
 var images = JSON.parse(localStorage.images);
 var imagesTotal = JSON.parse(localStorage.imagesTotal);
@@ -25,11 +27,13 @@ function showResults() {
     timesShown.push(images[iResults].timesShown);
     votesTotal.push(imagesTotal[iResults].votes);
     timesShownTotal.push(imagesTotal[iResults].timesShown);
+    percentagesTotal.push(imagesTotal[iResults].percentages);
     // console.log(images[iResults]);
   }
   new Chart(resultsEl, votesData);
   new Chart(percentageEl, percentageData);
   new Chart(resultsTotalEl, votesDataTotal);
+  // new Chart(percentagesTotalEl, percentageDataTotal);
 }
 
 var votesData = {
@@ -102,4 +106,24 @@ var votesDataTotal = {
     }
   }
 };
+// var percentageDataTotal = {
+//   type: 'radar',
+//   data: {
+//     labels: names,
+//     datasets: [{
+//       label: 'Percentages of total times clicked per shown',
+//       data: percetentages,
+//       backgroundColor: backgroundColors
+//     }]
+//   },
+//   options: {
+//     scales: {
+//       yAxes: {
+//         ticks: {
+//           beginAtZero: true
+//         }
+//       }
+//     }
+//   }
+// };
 showResults();
