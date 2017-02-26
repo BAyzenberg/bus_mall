@@ -51,6 +51,7 @@ var votesData = {
     }]
   },
   options: {
+    responsive: false,
     scales: {
       yAxes: [{
         ticks: {
@@ -72,6 +73,7 @@ var percentageData = {
     }]
   },
   options: {
+    responsive: false,
     scales: {
       yAxes: {
         ticks: {
@@ -97,6 +99,7 @@ var votesDataTotal = {
     }]
   },
   options: {
+    responsive: false,
     scales: {
       yAxes: [{
         ticks: {

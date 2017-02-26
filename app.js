@@ -178,7 +178,9 @@ function handleClick(event) {
       for (var i = 0; i < images.length; i++) {
         imagesTotal[i].votes += images[i].votes;
         imagesTotal[i].timesShown += images[i].timesShown;
-        imagesTotal[i].votePercentage();
+        console.log('Total Votes: ', imagesTotal[i].votes);
+        console.log('Instance Votes: ', images[i].votes);
+        // imagesTotal[i].votePercentage();
       }
     }
 
